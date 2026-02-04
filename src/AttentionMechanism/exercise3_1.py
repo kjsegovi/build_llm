@@ -1,22 +1,8 @@
+from SelfAttention import SelfAttention_v1, SelfAttention_v2
 import torch
 
-from AttentionMechanism.SelfAttention import SelfAttention_v1, SelfAttention_v2
-from Tokenizing.GPTDatasetV1 import create_dataloader_v1
 
-
-def main():
-    with open("the-verdict.txt", "r") as file:
-        raw_text = file.read()
-
-    dataloader = create_dataloader_v1(
-        raw_text, batch_size=1, max_length=4, stride=1, shuffle=False
-    )
-
-    data_iter = iter(dataloader)
-    first_batch = next(data_iter)
-    print(first_batch)
-
-    # testing the self-attention class
+def main(): 
     inputs = torch.tensor(
         [
             [0.43, 0.15, 0.89],  # Your     (x^1)
@@ -32,12 +18,17 @@ def main():
 
     torch.manual_seed(123)
     sa_v1 = SelfAttention_v1(d_in, d_out)
-    print(sa_v1(inputs))
 
-    # testing self-attention class v2
     torch.manual_seed(789)
     sa_v2 = SelfAttention_v2(d_in, d_out)
     print(sa_v2(inputs))
+
+    sa_v1.W_key = torch.nn.Parameter(sa_v2.W_key.weight.T)
+    sa_v1.W_query = torch.nn.Parameter(sa_v2.W_query.weight.T)
+    sa_v1.W_value = torch.nn.Parameter(sa_v2.W_value.weight.T)
+
+    print(sa_v1(inputs))
+
 
 
 if __name__ == "__main__":

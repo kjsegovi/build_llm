@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\AttentionMechanism",
+    "\\src\\Testing",
+    "\\src\\Tokenizing"
+  ],
+  "SelectedNode": "\\src\\Testing\\test_embeddings.py",
+  "PreviewInSolutionExplorer": false
+}

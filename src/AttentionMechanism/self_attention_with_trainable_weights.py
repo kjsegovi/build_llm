@@ -1,6 +1,6 @@
 import torch
 
-from src.AttentionMechanism.simplified import attn_scores_2
+from src.AttentionMechanism.simplified import attn_scores_2, context_vec_2
 
 inputs = torch.tensor(
   [[0.43, 0.15, 0.89], # Your     (x^1)
@@ -47,3 +47,7 @@ print(attn_scores_2)
 d_k = keys.shape[-1]
 attn_weights_2 = torch.softmax(attn_scores_2 / d_k**2, dim=-1)
 print(attn_weights_2)
+
+# finally we get the context vector
+context_vec_2 = attn_weights_2 @ values
+print(context_vec_2)
