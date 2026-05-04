@@ -3,3 +3,5 @@
 pyproject.toml
 .idea
 nvim
+.vs
+.vscode
